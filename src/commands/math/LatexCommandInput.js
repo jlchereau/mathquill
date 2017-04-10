@@ -74,7 +74,12 @@ CharCmds['\\'] = P(MathCommand, function(_, super_) {
 
     var latex = this.ends[L].latex();
     if (!latex) latex = ' ';
-    var cmd = LatexCmds[latex];
+    // BEGIN Removed by JLC - https://github.com/mathquill/mathquill/pull/642/files
+    // var cmd = LatexCmds[latex];
+    // END Removed by JLC - https://github.com/mathquill/mathquill/pull/642/files
+    // BEGIN Added by JLC - https://github.com/mathquill/mathquill/pull/642/files
+    var cmd = LatexCmds[latex] || Environments[latex];
+    // END Added by JLC - https://github.com/mathquill/mathquill/pull/642/files
     if (cmd) {
       cmd = cmd(latex);
       if (this._replacedFragment) cmd.replaces(this._replacedFragment);

@@ -29,6 +29,10 @@ LatexCmds['≈'] = LatexCmds.asymp = LatexCmds.approx = bind(BinaryOperator,'\\a
 
 LatexCmds.isin = LatexCmds['in'] = bind(BinaryOperator,'\\in ','&isin;');
 
+// BEGIN - Added by JLC
+LatexCmds.notin = LatexCmds.nisin = LatexCmds.nin = bind(BinaryOperator,'\\notin ','&notin;');
+// END - Added by JLC
+
 LatexCmds.ni = LatexCmds.contains = bind(BinaryOperator,'\\ni ','&ni;');
 
 LatexCmds.notni = LatexCmds.niton = LatexCmds.notcontains = LatexCmds.doesnotcontain =
@@ -239,8 +243,48 @@ LatexCmds.bull = LatexCmds.bullet = bind(VanillaSymbol,'\\bullet ','&bull;');
 LatexCmds.setminus = LatexCmds.smallsetminus =
   bind(VanillaSymbol,'\\setminus ','&#8726;');
 
-LatexCmds.not = //bind(Symbol,'\\not ','<span class="not">/</span>');
+// BEGIN Removed by JLC -- see https://github.com/mathquill/mathquill/pull/624/files?diff=unified
+// LatexCmds.not = //bind(Symbol,'\\not ','<span class="not">/</span>');
+// END Removed y JLC
 LatexCmds['¬'] = LatexCmds.neg = bind(VanillaSymbol,'\\neg ','&not;');
+// BEGIN Added by JLC -- see https://github.com/mathquill/mathquill/pull/624/files?diff=unified
+LatexCmds.not = P(VanillaSymbol, function(_, super_) {
+    // If one of these appears immediately after not, the
+    // parser returns a different symbol.
+    _.suffixes = {
+        '\\in':       'notin',
+        '\\ni':       'notni',
+        '\\subset':   'notsubset',
+        '\\subseteq': 'notsubseteq',
+        '\\supset':   'notsupset',
+        '\\supseteq': 'notsupseteq'
+    };
+    _.init = function() {
+        return super_.init.call(this, '\\neg ', '&not;');
+    };
+    _.parser = function() {
+        var succeed = Parser.succeed;
+        var optWhitespace = Parser.optWhitespace;
+
+        // Sort the suffixes, longest first
+        var suffixes = Object.keys(_.suffixes).sort(function(a, b) {
+            return b.length - a.length;
+        });
+
+        // Returns a parser matching any string in array
+        function anyOf(strings) {
+            var parser = Parser.string(strings.shift());
+            return (strings.length) ? parser.or(anyOf(strings)) : parser;
+        }
+
+        return anyOf(suffixes).then(function(suffix) {
+            return optWhitespace
+                .then(succeed(LatexCmds[_.suffixes[suffix]]()));
+        })
+            .or(optWhitespace.then(succeed(this)));
+    };
+});
+// END Added y JLC
 
 LatexCmds['…'] = LatexCmds.dots = LatexCmds.ellip = LatexCmds.hellip =
 LatexCmds.ellipsis = LatexCmds.hellipsis =

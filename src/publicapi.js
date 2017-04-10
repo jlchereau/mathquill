@@ -164,7 +164,12 @@ function getInterface(v) {
       var ctrlr = this.__controller.notify(), cursor = ctrlr.cursor;
       if (/^\\[a-z]+$/i.test(cmd)) {
         cmd = cmd.slice(1);
-        var klass = LatexCmds[cmd];
+        // BEGIN: Removed by JLC - https://github.com/mathquill/mathquill/pull/642/files
+        // var klass = LatexCmds[cmd];
+        // BEGIN: Removed by JLC - https://github.com/mathquill/mathquill/pull/642/files
+        // BEGIN: Added by JLC - https://github.com/mathquill/mathquill/pull/642/files
+        var klass = LatexCmds[cmd] || Environments[cmd];
+        // END: Added by JLC - https://github.com/mathquill/mathquill/pull/642/files
         if (klass) {
           cmd = klass(cmd);
           if (cursor.selection) cmd.replaces(cursor.replaceSelection());

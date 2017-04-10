@@ -137,6 +137,30 @@ suite('latex', function() {
     assertParsesLatex('\\square ');
   });
 
+  // BEGIN Added by JLC - https://github.com/mathquill/mathquill/pull/624/files?diff=unified
+  test('compound symbols beginning with \\not', function() {
+    assertParsesLatex('\\not\\ni ');
+    assertParsesLatex('\\not\\subset ');
+    assertParsesLatex('\\not\\supset ');
+    assertParsesLatex('\\not\\subseteq ');
+    assertParsesLatex('\\not\\supseteq ');
+  });
+  // END Added by JLC - https://github.com/mathquill/mathquill/pull/624/files?diff=unified
+
+  // BEGIN Added by JLC - https://github.com/mathquill/mathquill/pull/642/files?diff=unified
+  test('matrices', function() {
+    assertParsesLatex('\\begin{matrix}x\\end{matrix}');
+    assertParsesLatex('\\begin{pmatrix}x\\end{pmatrix}');
+    assertParsesLatex('\\begin{Bmatrix}x\\end{Bmatrix}');
+    assertParsesLatex('\\begin{vmatrix}x&y\\\\1&2\\end{vmatrix}');
+    assertParsesLatex('\\begin{bmatrix}x&y&z&123&x^2\\\\23&s&\\sin \\theta &1&x\\\\e&h&a&1&y\\end{bmatrix}');
+
+    // Adds missing cells
+    assertParsesLatex('\\begin{Vmatrix}x&y\\\\1\\end{Vmatrix}', '\\begin{Vmatrix}x&y\\\\1&\\end{Vmatrix}');
+    assertParsesLatex('\\begin{Vmatrix}x\\\\x&y\\\\x\\end{Vmatrix}', '\\begin{Vmatrix}x&\\\\x&y\\\\x&\\end{Vmatrix}');
+  });
+  // END Added by JLC - https://github.com/mathquill/mathquill/pull/642/files?diff=unified
+
   suite('public API', function() {
     var mq;
     setup(function() {
