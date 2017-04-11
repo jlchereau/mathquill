@@ -9,5 +9,9 @@ for (var key in MQ1) (function(key, val) {
   }
   else MathQuill[key] = val;
 }(key, MQ1[key]));
-
+// BEGIN - Added by JLC - https://github.com/mathquill/mathquill/pull/714
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = MathQuill;
+}
+// END - Added by JLC - https://github.com/mathquill/mathquill/pull/714
 }());
