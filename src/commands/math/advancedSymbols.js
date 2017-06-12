@@ -30,7 +30,7 @@ LatexCmds['≈'] = LatexCmds.asymp = LatexCmds.approx = bind(BinaryOperator,'\\a
 LatexCmds.isin = LatexCmds['in'] = bind(BinaryOperator,'\\in ','&isin;');
 
 // BEGIN - Added by JLC
-LatexCmds.notin = LatexCmds.nisin = LatexCmds.nin = bind(BinaryOperator,'\\notin ','&notin;');
+// LatexCmds.notin = LatexCmds.nisin = LatexCmds.nin = bind(BinaryOperator,'\\notin ','&notin;');
 // END - Added by JLC
 
 LatexCmds.ni = LatexCmds.contains = bind(BinaryOperator,'\\ni ','&ni;');
