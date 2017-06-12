@@ -816,7 +816,9 @@ LatexCmds.MathQuillMathField = P(MathCommand, function(_, super_) {
   _.registerInnerField = function(innerFields, MathField) {
     innerFields.push(innerFields[this.name] = MathField(this.ends[L].controller));
   };
-  _.latex = function(){ return this.ends[L].latex(); };
+  // BEGIN JLC - Do not remove \MathQuillMathField from exported latex
+  // _.latex = function(){ return this.ends[L].latex(); };
+	// BEGIN JLC - Do not remove \MathQuillMathField from exported latex
   _.text = function(){ return this.ends[L].text(); };
 });
 
