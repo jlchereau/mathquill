@@ -137,7 +137,13 @@ suite('latex', function() {
     assertParsesLatex('\\square ');
   });
 
-  // BEGIN Added by JLC - https://github.com/mathquill/mathquill/pull/624/files?diff=unified
+  // BEGIN Added by JLC - https://github.com/mathquill/mathquill/pull/555
+  test('miscellaneous symbols', function () {
+    assertParsesLatex('\\mathbb{AZ09}');
+  });
+  // END Added by JLC - https://github.com/mathquill/mathquill/pull/555
+
+  // BEGIN Added by JLC - https://github.com/mathquill/mathquill/pull/624
   test('compound symbols beginning with \\not', function() {
     assertParsesLatex('\\not\\ni ');
     assertParsesLatex('\\not\\subset ');
@@ -145,9 +151,9 @@ suite('latex', function() {
     assertParsesLatex('\\not\\subseteq ');
     assertParsesLatex('\\not\\supseteq ');
   });
-  // END Added by JLC - https://github.com/mathquill/mathquill/pull/624/files?diff=unified
+  // END Added by JLC - https://github.com/mathquill/mathquill/pull/624
 
-  // BEGIN Added by JLC - https://github.com/mathquill/mathquill/pull/642/files?diff=unified
+  // BEGIN Added by JLC - https://github.com/mathquill/mathquill/pull/642
   test('matrices', function() {
     assertParsesLatex('\\begin{matrix}x\\end{matrix}');
     assertParsesLatex('\\begin{pmatrix}x\\end{pmatrix}');
@@ -159,7 +165,7 @@ suite('latex', function() {
     assertParsesLatex('\\begin{Vmatrix}x&y\\\\1\\end{Vmatrix}', '\\begin{Vmatrix}x&y\\\\1&\\end{Vmatrix}');
     assertParsesLatex('\\begin{Vmatrix}x\\\\x&y\\\\x\\end{Vmatrix}', '\\begin{Vmatrix}x&\\\\x&y\\\\x&\\end{Vmatrix}');
   });
-  // END Added by JLC - https://github.com/mathquill/mathquill/pull/642/files?diff=unified
+  // END Added by JLC - https://github.com/mathquill/mathquill/pull/642
 
   suite('public API', function() {
     var mq;
