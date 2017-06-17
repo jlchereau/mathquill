@@ -927,7 +927,7 @@ var Embed = LatexCmds.embed = P(Symbol, function(_, super_) {
   };
 });
 
-// BEGIN: Added by JLC - https://github.com/mathquill/mathquill/pull/642/files
+// BEGIN: Added by JLC - https://github.com/mathquill/mathquill/pull/642
 
 // LaTeX environments
 // Environments are delimited by an opening \begin{} and a closing
@@ -1375,4 +1375,4 @@ var MatrixCell = P(MathBlock, function(_, super_) {
         });
     }
 });
-// END: Added by JLC - https://github.com/mathquill/mathquill/pull/642/files
+// END: Added by JLC - https://github.com/mathquill/mathquill/pull/642
