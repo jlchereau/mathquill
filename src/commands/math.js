@@ -432,14 +432,23 @@ var MathBlock = P(MathElement, function(_, super_) {
   };
 });
 
+// BEGIN Added by JLC - https://github.com/mathquill/mathquill/pull/751
+Options.p.mouseEvents = true;
+// END Added by JLC - https://github.com/mathquill/mathquill/pull/751
 API.StaticMath = function(APIClasses) {
   return P(APIClasses.AbstractMathQuill, function(_, super_) {
     this.RootBlock = MathBlock;
     _.__mathquillify = function(opts, interfaceVersion) {
       this.config(opts);
       super_.__mathquillify.call(this, 'mq-math-mode');
-      this.__controller.delegateMouseEvents();
-      this.__controller.staticMathTextareaEvents();
+      // BEGIN Added by JLC - https://github.com/mathquill/mathquill/pull/751
+      if (this.__options.mouseEvents) {
+        // END Added by JLC - https://github.com/mathquill/mathquill/pull/751
+        this.__controller.delegateMouseEvents();
+        this.__controller.staticMathTextareaEvents();
+        // BEGIN Added by JLC - https://github.com/mathquill/mathquill/pull/751
+      }
+      // END Added by JLC - https://github.com/mathquill/mathquill/pull/751
       return this;
     };
     _.init = function() {
