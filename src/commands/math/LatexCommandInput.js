@@ -34,7 +34,12 @@ CharCmds['\\'] = P(MathCommand, function(_, super_) {
       if (ch.match(/[a-z]/i)) VanillaSymbol(ch).createLeftOf(cursor);
       else {
         this.parent.renderCommand(cursor);
-        if (ch !== '\\' || !this.isEmpty()) this.parent.parent.write(cursor, ch);
+        // BEGIN Removed by JLC - https://github.com/mathquill/mathquill/commit/5c7bfe5749bbf0ffec897367cd198ed4337e73f8
+        // if (ch !== '\\' || !this.isEmpty()) this.parent.parent.write(cursor, ch);
+        // END Removed by JLC - https://github.com/mathquill/mathquill/commit/5c7bfe5749bbf0ffec897367cd198ed4337e73f8
+        // BEGIN Added by JLC - https://github.com/mathquill/mathquill/commit/5c7bfe5749bbf0ffec897367cd198ed4337e73f8
+        if (ch !== '\\' || !this.isEmpty()) cursor.parent.write(cursor, ch);
+        // END Added by JLC - https://github.com/mathquill/mathquill/commit/5c7bfe5749bbf0ffec897367cd198ed4337e73f8
       }
     };
     this.ends[L].keystroke = function(key, e, ctrlr) {

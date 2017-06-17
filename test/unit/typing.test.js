@@ -57,6 +57,14 @@ suite('typing with auto-replaces', function() {
       mq.typedText('$');
       assertLatex('\\$');
     });
+
+    // BEGIN Added by JLC - https://github.com/mathquill/mathquill/commit/5c7bfe5749bbf0ffec897367cd198ed4337e73f8
+    test('\\text followed by command', function() {
+      mq.typedText('\\text{');
+      assertLatex('\\text{{}');
+    });
+    // END Added by JLC - https://github.com/mathquill/mathquill/commit/5c7bfe5749bbf0ffec897367cd198ed4337e73f8
+
   });
 
   suite('auto-expanding parens', function() {
