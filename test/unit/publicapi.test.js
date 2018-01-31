@@ -109,7 +109,7 @@ suite('Public API', function() {
       mq.latex('x+y');
       assert.equal(mq.html(), '<var>x</var><span class="mq-binary-operator">+</span><var>y</var>');
     });
-    
+
     test('.text() with incomplete commands', function() {
       assert.equal(mq.text(), '');
       mq.typedText('\\');
@@ -157,6 +157,12 @@ suite('Public API', function() {
       mq.moveToRightEnd();
       assert.equal(mq.__controller.cursor[L].ctrlSeq, '0');
       assert.equal(mq.__controller.cursor[R], 0);
+    });
+
+    test('.empty()', function() {
+      mq.latex('xyz');
+      mq.empty();
+      assert.equal(mq.latex(), '');
     });
   });
 
@@ -516,7 +522,7 @@ suite('Public API', function() {
       });
       test('backslashes', function() {
         assertPaste('something \\pi something \\asdf',
-                    '\\text{something \\pi something \\asdf}');
+                    '\\text{something \\backslash pi something \\backslash asdf}');
       });
       // TODO: braces (currently broken)
       test('actual math LaTeX wrapped in dollar signs', function() {
